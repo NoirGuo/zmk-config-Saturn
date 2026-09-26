@@ -7,7 +7,7 @@
 #include "saturn.dtsi"
 
 // 4x6 matrix
-// cols: P0.13 P0.24 P1.11 P0.02 P0.05 P0.09 | rows: P1.10 P0.03 P0.28 P1.13
+// cols: P0.13 P0.24 P1.11 P0.02 P0.05 P0.09 | rows: P0.06 P0.03 P0.28 P1.13
 / {
     kscan1: kscan1 {
         compatible = "zmk,kscan-gpio-matrix";
@@ -24,7 +24,7 @@
             ;
 
         row-gpios
-            = <&gpio1 10 GPIO_ACTIVE_HIGH>
+            = <&gpio0 6 GPIO_ACTIVE_HIGH>
             , <&gpio0 3 GPIO_ACTIVE_HIGH>
             , <&gpio0 28 GPIO_ACTIVE_HIGH>
             , <&gpio1 13 GPIO_ACTIVE_HIGH>

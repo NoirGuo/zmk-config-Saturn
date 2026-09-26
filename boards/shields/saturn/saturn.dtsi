@@ -30,12 +30,6 @@
     transform = <&matrix_transform0>;
 };
 
-// The nrfmicro_13 board drives its blue LED from P1.10, which the Saturn
-// matrix uses as row0 on both halves; disable it so the pin is free.
-&blue_led {
-    status = "disabled";
-};
-
 // Encoder on the left (peripheral) half.
 // If the encoder is not behaving as expected,
 // update steps and triggers-per-rotation to match your hardware.

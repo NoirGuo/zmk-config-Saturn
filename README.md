@@ -66,7 +66,7 @@ GitHub Actions 构建完成后，在运行记录的 Artifacts 中下载固件压
 | --- | --- | --- |
 | col0–col5 | P0.13 / P0.24 / P1.11 / P0.02 / P0.05 / P0.09 | — |
 | col6–col12 | — | P0.13 / P0.24 / P1.11 / P0.02 / P0.05 / P0.09 / P0.10 |
-| row0–row3 | P1.10 / P0.03 / P0.28 / P1.13 | 同左 |
+| row0–row3 | P0.06 / P0.03 / P0.28 / P1.13 | 同左 |
 | 编码器 A / B | P0.31 / P0.29 | — |
 | 直触键（row4 col2） | P0.30 | — |
 | WS2812 underglow | P0.10（SPI3 MOSI，chain=1） | — |
