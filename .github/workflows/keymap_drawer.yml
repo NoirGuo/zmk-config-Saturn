@@ -1,0 +1,15 @@
+name: keymap-drawer
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Draw keymaps
+        uses: caksoylar/keymap-drawer@main
+        with:
+          keymap_patterns: "config/*.keymap"
+          json_path: "config"
+          config_path: "keymap_drawer.config.yaml"
+          output_folder: "keymap-drawer"
+          destination: "both"
