@@ -9,7 +9,8 @@ Saturn 是一个分体键盘：
 - **左手（外设）**：4 行 6 列矩阵（row0–row3, col0–col5）+ 1 个直接引脚按键 + 1 个 EC11 编码器 + WS2812 RGB underglow（chain=1）
 - **右手（中央）**：4 行 7 列矩阵（row0–row3, col6–col12）+ PAW3222 轨迹球
 - 主控：**nRFMicro 1.3（nrfmicro_13）**
-- 固件：ZMK（[DYA Studio fork](https://github.com/cormoran/zmk/tree/v0.3-branch%2Bdya)，基于 v0.3 分支），支持 [ZMK Studio](https://zmk.dev/docs/features/studio) / DYA Studio 在线改键
+- 固件：ZMK（[DYA Studio fork](https://github.com/cormoran/zmk/tree/main%2Bdya)，基于 `main+dya` / Zephyr 4.1），支持 [ZMK Studio](https://zmk.dev/docs/features/studio) / DYA Studio 在线改键
+- **分支说明**：`main` 分支基于 ZMK v0.3（`v0.3-branch+dya`）；`4.1` 分支为升级版，基于 `main+dya` + Zephyr `v4.1.0`，PAW3222 驱动改用 `xinta` 命名空间（`xinta,paw3222`）。
 
 ## 目录结构
 
@@ -50,7 +51,7 @@ Saturn 是一个分体键盘：
 
 ## 构建
 
-推送到 `main` 分支后 GitHub Actions 自动构建，固件在 Actions 页面下载：
+推送后 GitHub Actions 自动构建，固件在 Actions 页面下载：
 
 - `saturn_left`（左手，外设）
 - `saturn_right`（右手，中央，含 ZMK Studio RPC）
@@ -77,6 +78,6 @@ keymap draw keymap-drawer/saturn.yaml -o keymap-drawer/saturn.svg
 
 - **轨迹球 CPI**：PAW3222 驱动要求 CPI 范围 608–4826，当前配置 1600（原 pmw3610 的 600 不受支持）。可在 `boards/shields/saturn/trackball.dtsi` 中修改。
 - **轴方向**：监听器默认带 `INPUT_TRANSFORM_XY_SWAP`（保留原 pmw3610 `swap-xy` 的安装方向）。若轨迹球方向不对，可修改 `saturn_right.overlay` 或在 Studio 中调整。
-- **paw3222 驱动分支**：`west.yml` 固定使用 `tokyo2006/zmk-driver-paw3222` 的 `v0.3` 分支（`pixart,paw3222` compatible）；其 `main` 分支已迁移到 v0.4 的 `xinta` 命名空间，与 v0.3 DYA fork 不兼容。
+- **paw3222 驱动分支**：`main` 分支（v0.3 时代）固定使用 `tokyo2006/zmk-driver-paw3222` 的 `v0.3` 分支（`pixart,paw3222` compatible）；**`4.1` 分支**使用其 `main` 分支（`xinta,paw3222` compatible），与 ZMK `main+dya`（Zephyr 4.1）匹配。
 - **RGB 供电**：左手启用了 `CONFIG_ZMK_EXT_POWER`（nRFMicro 1.3 的 EXT_POWER 控制引脚），若灯带不亮可检查该引脚供电。
 - 自动休眠默认关闭（轨迹球键盘不建议开启）。

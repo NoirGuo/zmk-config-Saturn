@@ -1,3 +1,6 @@
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 1200 // trackball movement speed
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 60   // scroll speed
+
 #include <behaviors.dtsi>
 #include <behaviors/runtime-sensor-rotate.dtsi>
 #include <dt-bindings/zmk/bt.h>
@@ -7,9 +10,15 @@
 #include <dt-bindings/zmk/rgb.h>
 
 &msc {
+    acceleration-exponent = <0>;      // immediate encoder/scroll response
+    time-to-max-speed-ms = <0>;       // no acceleration ramp
+    delay-ms = <0>;
 };
 
 &mmv {
+    time-to-max-speed-ms = <500>;
+    acceleration-exponent = <1>;
+    trigger-period-ms = <16>;
 };
 
 / {

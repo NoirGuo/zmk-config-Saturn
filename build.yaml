@@ -1,16 +1,18 @@
 # This file generates the GitHub Actions matrix.
 # The right half is the central and carries ZMK Studio over USB.
+# In ZMK 4.1 the nrfmicro_13 board lives in the `zmk` module,
+# so boards are referenced as `nrfmicro_13//zmk`.
 ---
 include:
-  - board: nrfmicro_13
+  - board: nrfmicro_13//zmk
     shield: saturn_left
     artifact-name: saturn_left
 
-  - board: nrfmicro_13
+  - board: nrfmicro_13//zmk
     shield: saturn_right
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
     artifact-name: saturn_right
 
-  - board: nrfmicro_13
+  - board: nrfmicro_13//zmk
     shield: settings_reset
