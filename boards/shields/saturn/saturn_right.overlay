@@ -1,9 +1,20 @@
-#include "saturn.dtsi"
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
 
+#include "saturn.dtsi"
+#include "trackball.dtsi"
+#include <dt-bindings/zmk/input_transform.h>
+#include <input/processors.dtsi>
+#include <input/processors/runtime-input-processor.dtsi>
+
+// 4x7 matrix
 / {
     kscan0: kscan0 {
         compatible = "zmk,kscan-gpio-matrix";
-                diode-direction = "row2col";
+        diode-direction = "row2col";
         wakeup-source;
 
         col-gpios
@@ -32,19 +43,24 @@
 &physical_layout_saturn {
     kscan = <&kscan0>;
 };
-// == Input devices ==
-// Enabling input-split for its own input devices
-// Adding input devices and assigning them to input-split
-&input_split_right0 {
-    status = "okay";
-    device = <&input_device_right0>;
-};
 
-// Assigning dummy pins to other part's encoders
+// Assigning dummy pins to the other part's encoder
 // just to satisfy the devicetree requirements.
-// No code will be compiled for these disabled encoders.
+// No code will be compiled for this disabled encoder.
 &encoder_left0 {
     a-gpios = <&pro_micro 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
     b-gpios = <&pro_micro 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
 };
 
+// Trackball input listener (the sensor lives on this half, which is central).
+// XY_SWAP preserves the previous pmw3610 `swap-xy` orientation; adjust to your
+// mounting if needed, or change it at runtime from DYA Studio.
+/ {
+    trackball_listener: trackball_listener {
+        status = "okay";
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP)>,
+                           <&mouse_runtime_input_processor>;
+    };
+};

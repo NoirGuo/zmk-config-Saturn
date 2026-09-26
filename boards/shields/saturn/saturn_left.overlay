@@ -1,9 +1,16 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
 #include "saturn.dtsi"
 
+// 4x6 matrix
 / {
     kscan1: kscan1 {
         compatible = "zmk,kscan-gpio-matrix";
-                diode-direction = "row2col";
+        diode-direction = "row2col";
         wakeup-source;
 
         col-gpios
@@ -24,6 +31,7 @@
     };
 };
 
+// Direct pin (single extra key)
 / {
     kscan2: kscan2 {
         compatible = "zmk,kscan-gpio-direct";
@@ -55,15 +63,56 @@
 &physical_layout_saturn {
     kscan = <&kscan0>;
 };
-// == Input devices ==
-// Input devices on peripheral parts
-// Enabling input listeners and input-split to receive input events from peripherals
-&input_split_right0 { status = "okay"; };
-&input_listener_right0 { status = "okay"; };
 
+// Encoder (real pins on this half)
 &encoder_left0 {
     a-gpios = <&pro_micro 19 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
     b-gpios = <&pro_micro 18 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
     status = "okay";
 };
 
+// WS2812 RGB underglow on SPI3 (MOSI on D20 = P0.31), chain length 1
+&pinctrl {
+    spi3_default: spi3_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_MOSI, 0, 31)>;
+        };
+    };
+
+    spi3_sleep: spi3_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_MOSI, 0, 31)>;
+            low-power-enable;
+        };
+    };
+};
+
+&spi3 {
+    compatible = "nordic,nrf-spim";
+    status = "okay";
+    pinctrl-0 = <&spi3_default>;
+    pinctrl-1 = <&spi3_sleep>;
+    pinctrl-names = "default", "sleep";
+};
+
+#include <dt-bindings/led/led.h>
+&spi3 {
+    led_strip: ws2812@0 {
+        compatible = "worldsemi,ws2812-spi";
+        reg = <0>;
+        spi-max-frequency = <4000000>;
+
+        chain-length = <1>;
+        spi-one-frame = <0x70>;
+        spi-zero-frame = <0x40>;
+        color-mapping = <LED_COLOR_ID_GREEN
+                         LED_COLOR_ID_RED
+                         LED_COLOR_ID_BLUE>;
+    };
+};
+
+/ {
+    chosen {
+        zmk,underglow = &led_strip;
+    };
+};

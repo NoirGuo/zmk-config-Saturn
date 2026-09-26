@@ -2,6 +2,10 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 
 / {
+    chosen {
+        zmk,physical-layout = &physical_layout_saturn;
+    };
+
     matrix_transform0: matrix_transform0 {
         compatible = "zmk,matrix-transform";
         columns = <7>;
@@ -20,11 +24,10 @@
     transform = <&matrix_transform0>;
 };
 
-// Encoders for all parts of the keyboard.
-// If the encoder(s) are not behaving as expected,
+// Encoder on the left (peripheral) half.
+// If the encoder is not behaving as expected,
 // update steps and triggers-per-rotation to match your hardware.
-// All pin assignments are done in the part overlays.
-
+// Pin assignments are done in the part overlays.
 / {
     encoder_left0: encoder_left0 {
         compatible = "alps,ec11";
@@ -38,24 +41,3 @@
         triggers-per-rotation = <20>;
     };
 };
-
-// Input devices
-/ {
-    split_inputs {
-        #address-cells = <1>;
-        #size-cells = <0>;
-
-        input_split_right0: input_split_right0@0 {
-            compatible = "zmk,input-split";
-            reg = <0>;
-            status = "disabled";
-        };
-    };
-
-    input_listener_right0: input_listener_right0 {
-        compatible = "zmk,input-listener";
-        status = "disabled";
-        device = <&input_split_right0>;
-    };
-};
-

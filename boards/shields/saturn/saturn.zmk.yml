@@ -1,0 +1,16 @@
+file_format: "1"
+id: saturn
+name: Saturn
+type: shield
+url:
+requires:
+  - pro_micro
+exposes:
+features:
+  - keys
+  - encoder
+  - underglow
+  - pointer
+siblings:
+  - saturn_left
+  - saturn_right

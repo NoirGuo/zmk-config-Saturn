@@ -1,9 +1,13 @@
-if SHIELD_SATURN_LEFT
+# Copyright (c) 2020 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+if SHIELD_SATURN_RIGHT
 
 # Name must be less than 16 characters long!
 config ZMK_KEYBOARD_NAME
     default "Saturn"
 
+# The right half is the central (it hosts the trackball)
 config ZMK_SPLIT_ROLE_CENTRAL
     default y
 
@@ -28,28 +32,6 @@ config ZMK_SPLIT
     default y
 
 config ZMK_POINTING
-    default y
-
-endif
-
-# --- Pinctrl Kconfig for part "left" ---
-if BOARD_NICE_NANO_V2 && SHIELD_SATURN_LEFT
-
-config SPI
-    default y
-
-config WS2812_STRIP
-    default y
-
-endif
-
-# --- Pinctrl Kconfig for part "right" ---
-if BOARD_NICE_NANO_V2 && SHIELD_SATURN_RIGHT
-
-config SPI
-    default y
-
-config PMW3610
     default y
 
 endif
