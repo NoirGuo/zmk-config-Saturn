@@ -32,7 +32,7 @@
 
 // The nrfmicro_13 board drives its blue LED from P1.10, which the Saturn
 // matrix uses as row0 on both halves; disable it so the pin is free.
-&led_0 {
+&blue_led {
     status = "disabled";
 };
 

@@ -72,21 +72,17 @@
     status = "okay";
 };
 
-// WS2812 RGB underglow on SPI3 (MOSI on P0.11), chain length 1
-// NOTE: the pin table given by the user does not list the RGB data pin;
-// P0.11 is a placeholder chosen because P0.31 (the previous RGB pin) is
-// now used by encoder A. Adjust NRF_PSEL(SPIM_MOSI, 0, 11) to the real
-// wiring if it differs.
+// WS2812 RGB underglow on SPI3 (MOSI on P0.10, confirmed wiring), chain length 1
 &pinctrl {
     spi3_default: spi3_default {
         group1 {
-            psels = <NRF_PSEL(SPIM_MOSI, 0, 11)>;
+            psels = <NRF_PSEL(SPIM_MOSI, 0, 10)>;
         };
     };
 
     spi3_sleep: spi3_sleep {
         group1 {
-            psels = <NRF_PSEL(SPIM_MOSI, 0, 11)>;
+            psels = <NRF_PSEL(SPIM_MOSI, 0, 10)>;
             low-power-enable;
         };
     };
