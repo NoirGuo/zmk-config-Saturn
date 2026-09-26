@@ -57,7 +57,7 @@
         { "row": 4, "col": 3, "x": 3.75, "y": 4.25 }
       ]
     }
-  }
+  },
     "sensors": [
       {
         "ref": "left_encoder",
