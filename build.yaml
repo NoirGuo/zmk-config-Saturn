@@ -1,18 +1,20 @@
 # This file generates the GitHub Actions matrix.
 # The right half is the central and carries ZMK Studio over USB.
-# In ZMK 4.1 / Zephyr 4.1 the nrfmicro board is provided by the `zmk` module
-# (module boards are discovered automatically) and defaults to revision 1.3.0.
+# In ZMK 4.1 / Zephyr 4.1 the nrfmicro board is provided by the `zmk` module.
+# The board has two SoCs (nrf52840 / nrf52833), so the SoC qualifier must be
+# written out explicitly; `zmk` selects ZMK's customized nrf52840 SoC definition
+# (same effect as the `board//zmk` shorthand used on single-SoC boards).
 ---
 include:
-  - board: nrfmicro
+  - board: nrfmicro/nrf52840/zmk
     shield: saturn_left
     artifact-name: saturn_left
 
-  - board: nrfmicro
+  - board: nrfmicro/nrf52840/zmk
     shield: saturn_right
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
     artifact-name: saturn_right
 
-  - board: nrfmicro
+  - board: nrfmicro/nrf52840/zmk
     shield: settings_reset
