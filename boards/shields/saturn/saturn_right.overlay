@@ -38,7 +38,7 @@
 };
 
 &matrix_transform0 {
-    col-offset = <7>;
+    col-offset = <6>;
 };
 
 &physical_layout_saturn {

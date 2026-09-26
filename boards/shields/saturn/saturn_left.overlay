@@ -47,15 +47,17 @@
 / {
     kscan0: kscan0 {
         compatible = "zmk,kscan-composite";
-        rows = <4>;
-        columns = <7>;
+        rows = <5>;
+        columns = <13>;
 
         kscan1 {
+            row-offset = <0>;
             col-offset = <0>;
             kscan = <&kscan1>;
         };
         kscan2 {
-            col-offset = <6>;
+            row-offset = <4>;
+            col-offset = <2>;
             kscan = <&kscan2>;
         };
     };
