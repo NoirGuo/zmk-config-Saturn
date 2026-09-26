@@ -1,4 +1,6 @@
 {
+  "id": "saturn",
+  "name": "Saturn",
   "layouts": {
     "saturn": {
       "layout": [

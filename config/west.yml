@@ -1,19 +1,33 @@
 manifest:
-  defaults:
-    revision: v0.3
   remotes:
-    - name: zmkfirmware
-      url-base: https://github.com/zmkfirmware
-    - name: badjeff
-      url-base: https://github.com/badjeff
-    # Additional modules containing boards/shields/custom code can be listed here as well
-    # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
+    - name: cormoran
+      url-base: https://github.com/cormoran
+    - name: tokyo2006
+      url-base: https://github.com/tokyo2006
   projects:
+    # DYA Studio fork of ZMK v0.3 branch
     - name: zmk
-      remote: zmkfirmware
+      remote: cormoran
+      revision: v0.3-branch+dya
       import: app/west.yml
-    - name: zmk-pmw3610-driver
-      remote: badjeff
-      revision: zmk-0.3
+    # Runtime sensor rotate (encoder configurable from DYA Studio)
+    - name: zmk-behavior-runtime-sensor-rotate
+      remote: cormoran
+      revision: main
+    # PAW3222 trackball driver (v0.3 branch keeps the `pixart,paw3222` binding
+    # compatible with the v0.3 DYA fork; `main` has moved to the v0.4 `xinta` namespace)
+    - name: zmk-driver-paw3222
+      remote: tokyo2006
+      revision: v0.3
+    # DYA Studio modules
+    - name: zmk-module-ble-management
+      remote: cormoran
+      revision: zmk-v0.3.0.0
+    - name: zmk-module-runtime-input-processor
+      remote: cormoran
+      revision: zmk-v0.3.0.0
+    - name: zmk-module-settings-rpc
+      remote: cormoran
+      revision: main
   self:
     path: config
