@@ -1,11 +1,11 @@
 /*
  * PAW3222 trackball sensor on SPI1
  *
- * Wiring (pro micro pins):
- *   SCK  - D20 (P0.31)
- *   SDIO - D19 (P0.29)  (MOSI/MISO share the bidirectional data line)
- *   CS   - D18 (P0.02)
- *   IRQ  - D16 (P0.28)
+ * Wiring:
+ *   SCLK  - P0.30
+ *   SDIO  - P0.26  (MOSI/MISO share the bidirectional data line)
+ *   NCS   - P0.29
+ *   MOTION - P0.31 (irq)
  *
  * Note: the nrfmicro_13 board already defines spi1_default/spi1_sleep
  * pinctrl labels for its own SPI1 wiring, so this shield uses its own
@@ -16,17 +16,17 @@
 &pinctrl {
     saturn_spi1_default: saturn_spi1_default {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 31)>,
-                <NRF_PSEL(SPIM_MOSI, 0, 29)>,
-                <NRF_PSEL(SPIM_MISO, 0, 29)>;
+            psels = <NRF_PSEL(SPIM_SCK, 0, 30)>,
+                <NRF_PSEL(SPIM_MOSI, 0, 26)>,
+                <NRF_PSEL(SPIM_MISO, 0, 26)>;
         };
     };
 
     saturn_spi1_sleep: saturn_spi1_sleep {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 31)>,
-                <NRF_PSEL(SPIM_MOSI, 0, 29)>,
-                <NRF_PSEL(SPIM_MISO, 0, 29)>;
+            psels = <NRF_PSEL(SPIM_SCK, 0, 30)>,
+                <NRF_PSEL(SPIM_MOSI, 0, 26)>,
+                <NRF_PSEL(SPIM_MISO, 0, 26)>;
             low-power-enable;
         };
     };
@@ -38,14 +38,14 @@
     pinctrl-0 = <&saturn_spi1_default>;
     pinctrl-1 = <&saturn_spi1_sleep>;
     pinctrl-names = "default", "sleep";
-    cs-gpios = <&pro_micro 18 GPIO_ACTIVE_LOW>;
+    cs-gpios = <&gpio0 29 GPIO_ACTIVE_LOW>;
 
     trackball: trackball@0 {
         status = "okay";
         compatible = "pixart,paw3222";
         reg = <0>;
         spi-max-frequency = <2000000>;
-        irq-gpios = <&pro_micro 16 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        irq-gpios = <&gpio0 31 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         cpi = <1600>;
         force-awake;
     };

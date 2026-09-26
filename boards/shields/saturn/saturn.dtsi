@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
 #include "saturn-layouts.dtsi"
 #include <dt-bindings/zmk/matrix_transform.h>
 
@@ -22,6 +28,12 @@
 
 &physical_layout_saturn {
     transform = <&matrix_transform0>;
+};
+
+// The nrfmicro_13 board drives its blue LED from P1.10, which the Saturn
+// matrix uses as row0 on both halves; disable it so the pin is free.
+&led_0 {
+    status = "disabled";
 };
 
 // Encoder on the left (peripheral) half.
